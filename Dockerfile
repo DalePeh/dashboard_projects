@@ -5,7 +5,7 @@ FROM python:3.8
 WORKDIR /app
 
 # Copy the application files into the working directory
-COPY mcu_dash.py requirements.txt /app/
+COPY . /app
 
 # Install the application dependencies
 RUN pip install -r requirements.txt
