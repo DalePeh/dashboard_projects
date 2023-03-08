@@ -17,7 +17,7 @@ app = dash.Dash(__name__,  external_stylesheets=[dbc.themes.BOOTSTRAP])
 colors = {'background': 'black'}
 
 # get data
-df=pd.read_csv('../Data/box_office.csv')
+df=pd.read_csv('Data/box_office.csv')
 
 
 # define color for each mcu movie phase
