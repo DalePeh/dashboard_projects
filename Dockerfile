@@ -13,5 +13,5 @@ RUN pip install -r requirements.txt
 # Define the entry point for the container
 CMD ["python", "mcu_dash.py"]
 
-# Expose port 8080 for Flask app
-EXPOSE 8080
+# Expose port 5000 for Flask app
+EXPOSE 5000
