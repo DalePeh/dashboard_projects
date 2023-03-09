@@ -270,8 +270,7 @@ def update_line_chart(phase):
     data = [go.Line(
         x=filtered_df_year_earning['Year_Release'],
         y=filtered_df_year_earning['Total Earnings'],
-        hoverinfo='x+y'
-        
+        hoverinfo='x+y' 
         )]
 
     layout = go.Layout(
