@@ -59,7 +59,14 @@ app.layout = html.Div(style={
 						'font-weight': 'bold',
 						'color': 'white',
 						'marginTop': '10px',
-						'marginBottom': '20px'}),
+						'marginBottom': '20px', 
+                        'display': 'inline-block'}),
+        html.H3(id='phase_display', className='phase_subtitle', children='',
+            style={'fontSize': 30,
+            'color': '#FAFAD2',
+            'margin-left': '20px',
+            'display': 'inline-block'}),
+
 		dcc.Dropdown(
 			id='phase_dropdown',
 			options=dropdown_options,
@@ -147,6 +154,20 @@ app.layout = html.Div(style={
     ]
 )
 
+#Define app call back Phase sub-title
+@app.callback(
+    Output('phase_display', 'children'),
+    [Input('phase_dropdown', 'value')])
+
+def update_phase_title(phase):
+    filtered_df = df[df['Phase'] == phase]
+
+    if phase == 'All Phases':
+        phase_display = "All Phases"
+    else:
+        phase_display = f"{filtered_df.iloc[0]['Phase']}"
+
+    return phase_display
 
 # Define app callback of bar chart
 @app.callback(
