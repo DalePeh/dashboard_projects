@@ -19,6 +19,18 @@ colors = {'background': 'black'}
 # get data
 df=pd.read_csv('Data/box_office.csv')
 
+# a group by of yearly earning
+yearly_earning= df.groupby(['Year_Release', 'Phase'])['Box office gross Worldwide'].sum()
+df_year_earning = pd.DataFrame(yearly_earning)
+
+#rename columns box office gross worldwide to total earning
+df_year_earning = df_year_earning.rename(columns={'Box office gross Worldwide': 'Total Earnings'})
+
+# reset_index for df_year_earning
+df_year_earning = df_year_earning.reset_index()
+
+# change year as category
+df['Year_Release'] = pd.to_datetime(df['Year_Release']).dt.strftime('%Y')
 
 # define color for each mcu movie phase
 colors = {
@@ -74,14 +86,14 @@ app.layout = html.Div(style={
 			style={'width': '33%'}),
     
         html.Div('Select to view results', style={
-            'color':'white',
-            'margin-left': '5px', 
+            'color':'white' 
             }),
 
 		html.Div([
-            dcc.Graph(id='box_office_chart', style={'width': '50%', 'height': '400px', 'display': 'inline-block'}),
-            dcc.Graph(id='pie_chart', style={'width': '50%', 'height': '400px', 'display': 'inline-block'}),
-        ] , style={'margin': '10px'}),
+            dcc.Graph(id='box_office_chart', style={'width': '33%', 'height': '350px', 'display': 'inline-block'}),
+            dcc.Graph(id='pie_chart', style={'width': '38%', 'height': '350px', 'display': 'inline-block'}),
+            dcc.Graph(id='line_chart', style={'width': '29%', 'height': '350px', 'display': 'inline-block'}),
+        ] , style={'margin': '5px'}),
 
         html.H3(
             children='Movie Trivia', 
@@ -146,7 +158,7 @@ app.layout = html.Div(style={
             html.Br(),
             html.A('Visit My Home Page', href='https://lhprojectportfolio.w3spaces.com/')
             ], style={
-                'font-size': '8px',
+                'font-size': '10px',
                 'color': 'white',
                 'textAlign': 'center',
                 'margin': 'auto'})
@@ -194,7 +206,7 @@ def update_box_office_chart(phase):
 			x=0
 		),
 		xaxis=dict(title=' ', tickfont=dict(size=10)),
-		yaxis=dict(title='Box Office Amount (USD)', tickprefix='$'),
+		yaxis=dict(title='Box Office Amount', tickprefix='$'),
 		plot_bgcolor='rgba(0, 0, 0, 0.7)',
 		paper_bgcolor='rgba(0, 0, 0, 0.7)',
 		font=dict(color='white', family='Helvetica'),
@@ -211,7 +223,7 @@ def update_box_office_chart(phase):
     Output('pie_chart', 'figure'),
     [Input('phase_dropdown', 'value')]
 )
-def update_box_office_chart(phase):
+def update_pie_chart(phase):
     if phase == 'All Phases':
         filtered_df = df
     else:
@@ -229,7 +241,46 @@ def update_box_office_chart(phase):
             text='Movie Box Office Share',
             font=dict(family='Helvetica'),
         ),
-        yaxis=dict(title='Box Office Amount (USD)', tickprefix='$'),
+        plot_bgcolor='rgba(0, 0, 0, 0.7)',
+        paper_bgcolor='rgba(0, 0, 0, 0.7)',
+        font=dict(color='white', family='Helvetica'),
+        legend=dict(
+            x=1,
+            y=1,
+            traceorder='normal',
+            font=dict(size=5),
+            bgcolor='rgba(0,0,0,0)'))
+
+    fig = go.Figure(data=data, layout=layout)
+    fig.update_layout(title_font=dict(size=20))
+
+    return fig
+
+# Define app callback of Line Chart
+@app.callback(
+    Output('line_chart', 'figure'),
+    [Input('phase_dropdown', 'value')]
+)
+def update_line_chart(phase):
+    if phase == 'All Phases':
+        filtered_df_year_earning = df_year_earning
+    else:
+        filtered_df_year_earning = df_year_earning[df_year_earning['Phase'] == phase]
+
+    data = [go.Line(
+        x=filtered_df_year_earning['Year_Release'],
+        y=filtered_df_year_earning['Total Earnings'],
+        hoverinfo='x+y'
+        
+        )]
+
+    layout = go.Layout(
+        title=dict(
+            text='Total Earning by Year',
+            font=dict(family='Helvetica'),
+        ),
+        xaxis=dict(title='Year', tickangle=90),
+        yaxis=dict(title='Total Earnings', tickprefix='$'),
         plot_bgcolor='rgba(0, 0, 0, 0.7)',
         paper_bgcolor='rgba(0, 0, 0, 0.7)',
         font=dict(color='white', family='Helvetica')
