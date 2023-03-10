@@ -98,7 +98,7 @@ app.layout = html.Div(style={
         html.H3(
             children='Movie Trivia', 
             style={
-            'background-color': 'rgba(0, 0, 0, 0.8)',
+            'background-color': 'rgba(0, 0, 0, 0.6)',
             'border-radius': '10px',
             'padding': '10px',
             'color': 'Linen','marginTop': '15px'}),
@@ -319,13 +319,13 @@ def update_cards(phase):
     highest_rated_movie = filtered_df[filtered_df["Rotten Tomatoes Rating"] == filtered_df["Rotten Tomatoes Rating"].max()]
     rated_image = highest_rated_movie.iloc[0]["movie_image"]
     rated_title = highest_rated_movie.iloc[0]["Film"]
-    rated_text = f"{highest_rated_movie.iloc[0]['Film']} Rotten Tomatoes Rating is {highest_rated_movie.iloc[0]['Rotten Tomatoes Rating']}" + '%. ' f"It recieved a CinemaScore® of {highest_rated_movie.iloc[0]['CinemaScore']}"
+    rated_text = f"{highest_rated_movie.iloc[0]['Film']} was directed by {highest_rated_movie.iloc[0]['Director']}. It's current Rotten Tomatoes Rating is {highest_rated_movie.iloc[0]['Rotten Tomatoes Rating']}" + '%' f" and gotten CinemaScore® of {highest_rated_movie.iloc[0]['CinemaScore']}"
 
     # Most Expensive Movie
     most_expensive_movie = filtered_df[filtered_df["Budget"] == filtered_df["Budget"].max()]
     expensive_image = most_expensive_movie.iloc[0]["movie_image"]
     expensive_title = most_expensive_movie.iloc[0]['Film']
-    expensive_text = f"{most_expensive_movie.iloc[0]['Film']} was produced with a budget of ${most_expensive_movie.iloc[0]['Budget']:,.0f}."
+    expensive_text = f"{most_expensive_movie.iloc[0]['Film']} was produced by {most_expensive_movie.iloc[0]['Producer']} with a budget of ${most_expensive_movie.iloc[0]['Budget']:,.0f}."
 
     return (grossing_image, grossing_title, grossing_text,
             rated_image, rated_title, rated_text,
