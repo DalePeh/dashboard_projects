@@ -108,7 +108,7 @@ app.layout = html.Div(style={
                 html.Div(className='card', children=[
                     html.Div(className='card-header', children='Highest Grossing Movie', style={'font-weight': 'bold'}),
                     html.Div(className='card-body', style={'display': 'flex', 'flex-direction': 'row'}, children=[
-                        html.H5(id='grossing_title', className='card-title', children='', style={
+                        html.H6(id='grossing_title', className='card-title', children='', style={
                             'font-weight': 'bold',
                             'margin-right': '5px'
                             }),
@@ -125,7 +125,7 @@ app.layout = html.Div(style={
                 html.Div(className='card', children=[
                     html.Div(className='card-header', children='Highest Rated Movie', style={'font-weight': 'bold'}),
                     html.Div(className='card-body', style={'display': 'flex', 'flex-direction': 'row'}, children=[
-                        html.H5(id='rated_title', className='card-title', style={
+                        html.H6(id='rated_title', className='card-title', style={
                             'font-weight': 'bold',
                             'margin-right': '5px'}, children=''),
                         html.Img(id='rated_image', className='card-img-top', style={
@@ -141,7 +141,7 @@ app.layout = html.Div(style={
                 html.Div(className='card', children=[
                     html.Div(className='card-header', children='Most Expensive Movie', style={'font-weight': 'bold'}),
                     html.Div(className='card-body', style={'display': 'flex', 'flex-direction': 'row'}, children=[
-                        html.H5(id='expensive_title', className='card-title', children='', style={
+                        html.H6(id='expensive_title', className='card-title', children='', style={
                             'font-weight': 'bold',
                             'margin-right': '5px'}),
                         html.Img(id='expensive_image', className='card-img-top', style={
