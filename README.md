@@ -17,8 +17,10 @@ The MCU Cinematic Dashboard is a visually rich, interactive dashboard for explor
 - Data file: `data/box_office.csv`
 - Columns: Phase, Film, Year_Release, U.S. release date, Box office gross (US/Canada, Other territories, Worldwide), Rotten Tomatoes Rating, CinemaScore, Budget, Director, Producer, movie_image
 
+
 ## Installation & Setup
 
+### Local Python Installation
 1. **Clone the repository**
 	```bash
 	git clone <your-repo-url>
@@ -41,6 +43,18 @@ The MCU Cinematic Dashboard is a visually rich, interactive dashboard for explor
 	python app.py
 	```
 	The dashboard will be available at http://127.0.0.1:8050/
+
+### Docker Installation
+1. **Build the Docker image**
+	```bash
+	docker build -t mcu-dashboard .
+	```
+
+2. **Run the Docker container**
+	```bash
+	docker run -p 8050:8050 mcu-dashboard
+	```
+	The dashboard will be available at http://localhost:8050/
 
 ## Usage
 - Select a phase using the buttons to filter KPIs and graphs

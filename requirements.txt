@@ -1,0 +1,9 @@
+# Core dependencies
+pandas
+numpy
+dash
+dash-bootstrap-components
+plotly
+
+# Optional: for production WSGI server
+gunicorn

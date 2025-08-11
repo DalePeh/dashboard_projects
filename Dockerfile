@@ -1,6 +1,6 @@
 # MCU Cinematic Dashboard Dockerfile
 # Use official Python image
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 # Set working directory
 WORKDIR /app
@@ -20,4 +20,8 @@ ENV DASH_ENV=production
 ENV PORT=8050
 
 # Run the dashboard
+# For production, use Gunicorn (uncomment next line)
+# CMD ["gunicorn", "--bind", "0.0.0.0:8050", "app:app"]
+
+# For development, use Dash's built-in server
 CMD ["python", "app.py"]
