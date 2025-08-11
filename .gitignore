@@ -1,0 +1,9 @@
+conftest.py
+test_app.py
+test_unit_app.py
+/img
+/.github/workflows
+/__pycache__/
+node_modules/
+.env
+*.log
