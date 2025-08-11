@@ -234,7 +234,11 @@ def update_dashboard(selected_phase, legend_rt, legend_earnings, legend_timeline
 	)
 	return kpi_cards, fig_rt, fig_earnings, fig_timeline
 
+
+# Expose server for Gunicorn
+server = app.server
+
 if __name__ == '__main__':
 	import os
 	port = int(os.environ.get('PORT', 8050))
-	app.run_server(debug=True, host='0.0.0.0', port=port)
+	app.run_server(debug=False, host='0.0.0.0', port=port)
