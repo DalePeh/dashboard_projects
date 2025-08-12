@@ -1,3 +1,4 @@
+from cmath import phase
 import pandas as pd
 import numpy as np
 import dash
@@ -10,7 +11,24 @@ df = pd.read_csv('data/box_office.csv')
 
 # KPI Calculations
 def get_kpi(phase, kpi):
-	phase_df = df[df['Phase'] == phase]
+	"""
+	Return a row with the desired KPI for the given phase.
+
+    If ``phase`` is ``"All Phases"`` or ``None`` the KPI is calculated
+    across the entire dataset.  Previously the function assumed ``phase``
+    existed in the dataframe which caused the "All Phases" option to show
+    results only from the first phase.  This now falls back to the full
+    dataframe and safely handles empty selections.
+    """
+
+	if phase in (None, 'All Phases'):
+		phase_df = df
+	else:
+		phase_df = df[df['Phase'] == phase]
+
+	if phase_df.empty:
+		return None
+	
 	if kpi == 'highest_gross':
 		row = phase_df.loc[phase_df['Box office gross Worldwide'].idxmax()]
 	elif kpi == 'lowest_gross':
